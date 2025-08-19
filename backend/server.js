@@ -1,13 +1,25 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
+
 const app = require('./app');
 
-mongoose
-    .connect('mongodb://127.0.0.1:27017/todo-backend')
+const port = 3000;
+
+mongoose  
+    .connect(process.env.MONGO_DB_ADDRESS)
+    
     .then(()=>{
-        app.listen(3000, ()=>{
-            console.log('server running on port 3000.');
-            console.log('mongodb connected.')
+        
+        //after mongo is connected listen for express server
+        app.listen(port, ()=>{
+            console.log(`Server connected on port: ${port}`);
+            console.log("mongoDB connected on", process.env.MONGO_DB_ADDRESS);
 
         })
     })
-    .catch((err) => console.error('MongoDB error:', err));
+    .catch((error)=>{
+        console.log(error);
+    })
+
+
+
