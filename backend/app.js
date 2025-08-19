@@ -14,7 +14,7 @@ app.use(cors())
 
 //routes
 app.use('/api/todo', todoRouter);
-app.use('api/users', userRouter)
+app.use('/api/user', userRouter)
 
 module.exports = app;
 
