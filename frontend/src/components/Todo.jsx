@@ -1,60 +1,56 @@
-import React from 'react'
-import Button from './common/Button'
-import { useState } from 'react'
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { ListItem, Checkbox, IconButton, TextField, Box, Paper, Typography } from '@mui/material';
+import { Edit, Delete, Check } from '@mui/icons-material';
 
-const Todo = ({ todo, handleChangeIsDone, handleEditTodo, handleDeleteTodo }) => {
-    const [editInput, setEditInput] = useState(todo.text);
-    const [isEditing, setIsEditing] = useState(false);
-    return (
-        <div className='todolist-div'>
-            {!isEditing ? (<li
-                className={`li-style ${todo.isDone ? "li-style-isDone" : ""}`}
-                //key={todo.id}
-                onClick={() => handleEditTodo(todo._id, {isDone: !todo.isDone})}
+const Todo = ({ todo, handleEditTodo, handleDeleteTodo }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editInput, setEditInput] = useState(todo.text);
 
-            >
-                {todo.text}
+  return (
+    <Paper 
+      sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between', 
+        p: 1, 
+        mb: 1, 
+        borderRadius: 2,
+        bgcolor: todo.isDone ? '#777' : '#fff',
+        color: todo.isDone ? '#eee' : '#000'
+      }} 
+      elevation={4}
+    >
+      {!isEditing ? (
+        <Box display="flex" alignItems="center" flex={1} onClick={() => handleEditTodo(todo._id, { isDone: !todo.isDone })}>
+          <Checkbox checked={todo.isDone} />
+          <Typography sx={{ textDecoration: todo.isDone ? 'line-through' : 'none' }}>
+            {todo.text}
+          </Typography>
+        </Box>
+      ) : (
+        <TextField
+          fullWidth
+          value={editInput}
+          onChange={e => setEditInput(e.target.value)}
+          sx={{ mr: 1 }}
+        />
+      )}
 
-            </li>) : (
-                <input
-                    type='text'
-                    value={editInput}
-                    onChange={(e) => setEditInput(e.target.value)} />
-            )}
-            {!isEditing ? (<Button
-                cssid={'edit-button'}
-                clickFunction={() => setIsEditing(true)}
-                buttonName={'Edit'}
-            />) : (
-                <Button
-                    cssid={'done-button'}
-                    clickFunction={() => { 
-                        handleEditTodo(todo._id,{text: editInput})
-                        setIsEditing(false) }}
-                    buttonName={"Update"} />
-            )}
+      {!isEditing ? (
+        <IconButton onClick={() => setIsEditing(true)} color="primary">
+          <Edit />
+        </IconButton>
+      ) : (
+        <IconButton onClick={() => { handleEditTodo(todo._id, { text: editInput }); setIsEditing(false); }} color="success">
+          <Check />
+        </IconButton>
+      )}
 
-            <Button
-                cssid={'delete-button'}
-                clickFunction={() => 
-                handleDeleteTodo(todo._id)
-                }
-                buttonName={'Delete'}
-            />
-
-
-        </div>
-    )
+      <IconButton onClick={() => handleDeleteTodo(todo._id)} color="error">
+        <Delete />
+      </IconButton>
+    </Paper>
+  )
 }
 
-// Todo.propTypes = {
-//     handleEditTodo: PropTypes.func.isRequired,
-//     todo: PropTypes.shape({
-//         _id: PropTypes.string.isRequired,
-//         _id: PropTypes.string.isRequired,
-//         _id: PropTypes.string.isRequired,
-//     })
-// }
-
-export default Todo
+export default Todo;
