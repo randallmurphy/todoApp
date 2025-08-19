@@ -60,7 +60,7 @@ const TodoList = () => {
           value={textInput}
           onChange={e => setTextInput(e.target.value)}
           fullWidth
-          sx={{ bgcolor: '#fff', borderRadius: 2 }}
+          sx={{ bgcolor: '#c08feeff', borderRadius: 2 }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

@@ -15,8 +15,8 @@ const Todo = ({ todo, handleEditTodo, handleDeleteTodo }) => {
         p: 1, 
         mb: 1, 
         borderRadius: 2,
-        bgcolor: todo.isDone ? '#777' : '#fff',
-        color: todo.isDone ? '#eee' : '#000'
+        bgcolor: todo.isDone ? '#31e475ff' : '#a749ddff',
+        color: todo.isDone ? '#000' : '#000'
       }} 
       elevation={4}
     >
