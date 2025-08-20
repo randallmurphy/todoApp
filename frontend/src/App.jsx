@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Paper, Box, Button } from '@mui/material';
 import LandingPage from './components/LandingPage';
 import Header from './components/Header';
-import TodoList from './components/TodoList';
+import TodoList from './components/TodoList.jsx';
 import  axios  from 'axios';
 
 const App = () => {
