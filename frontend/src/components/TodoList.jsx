@@ -11,7 +11,7 @@ const TodoList = () => {
   useEffect(() => {
     async function getAllTodos() {
       try {
-        const response = await axios.get("http://localhost:3000/api/todo/get-all-todos");
+        const response = await axios.get(`${import.meta.env.DEV ? 'http://localhost:3000' : ''}/api/todo/get-all-todos`);
         setTodoList(response.data.payload);
       } catch (error) {
         console.log(error);
@@ -22,7 +22,7 @@ const TodoList = () => {
 
   async function handleEditTodo(_id, updateObj) {
     try {
-      const response = await axios.put(`http://localhost:3000/api/todo/update-todo/${_id}`, updateObj);
+      const response = await axios.put(`${import.meta.env.DEV ? 'http://localhost:3000' : ''}/api/todo/update-todo/${_id}`, updateObj);
       const newList = todoList.map(item => item._id === _id ? response.data.payload : item);
       setTodoList(newList);
     } catch (error) {
@@ -32,7 +32,7 @@ const TodoList = () => {
 
   async function handleDeleteTodo(id) {
     try {
-      await axios.delete(`http://localhost:3000/api/todo/delete-todo/${id}`);
+      await axios.delete(`${import.meta.env.DEV ? 'http://localhost:3000' : ''}/api/todo/delete-todo/${id}`);
       setTodoList(todoList.filter(item => item._id !== id));
     } catch (error) {
       console.log(error);
@@ -43,7 +43,7 @@ const TodoList = () => {
     event.preventDefault();
     if (!textInput) return;
     try {
-      const response = await axios.post('http://localhost:3000/api/todo/create-todo', { text: textInput });
+      const response = await axios.post(`${import.meta.env.DEV ? 'http://localhost:3000' : ''}/api/todo/create-todo`, { text: textInput });
       setTodoList([...todoList, response.data.payload]);
       setTextInput("");
     } catch (error) {
